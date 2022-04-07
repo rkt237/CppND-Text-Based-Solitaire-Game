@@ -1,6 +1,9 @@
-#include "../include/pile.hh"
-#include "../include/game.hh"
+#include "../include/pile.h"
+#include "../include/game.h"
+
 #include <fstream>
+#include <random>
+
 DeskPile::DeskPile() : Pile ()
 {
 }
@@ -12,15 +15,15 @@ DeskPile::~DeskPile()
 //----------------------------
 //        Init
 //----------------------------
-void DeskPile::Init( Game* apGame )
+void DeskPile::Init()
 {
     try
     {
-        std::ofstream myfile ("/home/kentch");
         Clear();
 
         makePile();
         
+        std::ofstream myfile ("/home/kentch/deskpile.txt");
         Print(myfile);
         
         Shuffle();
@@ -31,6 +34,27 @@ void DeskPile::Init( Game* apGame )
     catch(const std::exception& e)
     {
         std::cerr << "Init DeskPile: " << e.what() << '\n';
+    }
+}
+
+//----------------------------
+//       Shuffle
+//----------------------------
+void DeskPile::Shuffle()
+{
+    int n = GetSize();
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+
+    // Random number distribution that produces integer values from 0 to the number of card
+    std::uniform_int_distribution<int> random(0, (n-1));
+
+    for ( int i = 0; i < n; ++i )
+    {
+        // random number
+        int j = random(gen);
+        
+        std::swap(mStack[i], mStack[j]);
     }
 }
 

@@ -1,5 +1,5 @@
-#include "../include/renderer.hh"
-#include "../include/controller.hh"
+#include "../include/renderer.h"
+#include "../include/controller.h"
 
 #include <iostream>
 
@@ -22,7 +22,7 @@ int main()
     
     renderer.Display( game );
 
-    game.Run( controller, renderer );
+    //game.Run( controller, renderer );
 
     return 0;
 }

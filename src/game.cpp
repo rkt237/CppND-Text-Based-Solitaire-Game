@@ -1,5 +1,5 @@
-#include "../include/game.hh"
-#include "../include/pile.hh"
+#include "../include/game.h"
+#include "../include/pile.h"
 
 #include <fstream>
 #include <iostream>
@@ -55,7 +55,10 @@ void Game::Init()
 
         // Initialization of CardPiles, Init of Desk must be done befor the init of Table
         for ( auto p_pile : mPilesList )
-            p_pile->Init(this);
+            p_pile->Init();
+
+        for( int i = Game::COLUMN1; i <= Game::COLUMN7; i++ )
+            GetTablePile( i ).Deal( mPilesList[DESK] );
 
         for ( auto p_pile : mPilesList )
         {
@@ -77,15 +80,18 @@ void Game::Run( Controller& arCtrl, Renderer& arRender )
 {
     try
     {
-        char buffer[80];
+        //char buffer[80];
         
-        bool running = true;
+        //bool running = true;
+
+        //arRender.Display(*this);
+        /*
         // game loop
         while(running)
         {
-            getstr(buffer);
+            //getstr(buffer);
 
-            erase();
+            //erase();
 
             // Input, Update, Renderer - the main game loop.
             ParseSolitaire parse_cmd; 
@@ -95,6 +101,7 @@ void Game::Run( Controller& arCtrl, Renderer& arRender )
 
             arRender.Display(*this);
         }
+        */
     }
     catch(const std::exception& e)
     {
@@ -224,7 +231,7 @@ SuitPile& Game::GetSuitPile(int aIndex)
 
 void Game::Print()
 {
-    std::ofstream myfile ("/home/kentch");
+    std::ofstream myfile ("/home/kentch/pile.txt");
     for ( auto p_pile : mPilesList )
         p_pile->Print(myfile);
     myfile.close();

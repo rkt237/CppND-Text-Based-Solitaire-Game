@@ -1,7 +1,7 @@
 #ifndef RENDERER_HH
 #define RENDERER_HH
 
-#include "game.hh"
+#include "game.h"
 //#include <ncurses.h>
 #include <curses.h>
 

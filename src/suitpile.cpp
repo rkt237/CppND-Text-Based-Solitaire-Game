@@ -1,5 +1,5 @@
-#include "../include/pile.hh"
-#include "../include/game.hh"
+#include "../include/pile.h"
+#include "../include/game.h"
 
 SuitPile::SuitPile(int aSuitTyp) 
 : Pile ()
@@ -12,20 +12,16 @@ SuitPile::~SuitPile()
 }
 
 //----------------------------
-//        Init
-//----------------------------
-void SuitPile::Init( Game* apGame )
-{
-    Clear();
-}
-
-//----------------------------
 //        canTake
 //----------------------------
 bool SuitPile::canTake(Card* apCard)
 {
     try
     {
+        // checking for nullptr
+        if ( apCard == nullptr )
+            throw std::invalid_argument("Card is nullptr");
+        
         // Get the size of cards
         if ( IsEmpty() )
         {

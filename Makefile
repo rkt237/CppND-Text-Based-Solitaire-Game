@@ -1,8 +1,24 @@
-CC=cc
-sol:
-	$(CC) -o solitaire -DUNICODE -Wall -lncursesw -ltinfo src/main.cpp src/card.cpp src/pile.cpp src/deskpile.cpp src/discardpile.cpp src/suitpile.cpp src/tablepile.cpp src/controller.cpp src/renderer.cpp src/game.cpp
-debug:
-	$(CC) -g -o solitaire -DUNICODE -Wall -lncursesw -ltinfo src/main.cpp src/card.cpp src/pile.cpp src/deskpile.cpp src/discardpile.cpp src/suitpile.cpp src/tablepile.cpp src/controller.cpp src/renderer.cpp src/game.cpp
-ascii:
-	$(CC) -o solitaire -Wall -lncursesw -ltinfo src/main.cpp src/card.cpp src/pile.cpp src/deskpile.cpp src/discardpile.cpp src/suitpile.cpp src/tablepile.cpp src/controller.cpp src/renderer.cpp src/game.cpp
+.PHONY: all
+all: format test build
 
+.PHONY: format
+format:
+	clang-format src/* include/* -i
+
+.PHONY: build
+build:
+	mkdir -p build
+	cd build && \
+	cmake .. && \
+	make
+
+.PHONY: debug
+debug:
+	mkdir -p build
+	cd build && \
+	cmake -DCMAKE_BUILD_TYPE=debug .. && \
+	make
+
+.PHONY: clean
+clean:
+	rm -rf build

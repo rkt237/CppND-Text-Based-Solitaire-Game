@@ -1,5 +1,5 @@
-#include "../include/pile.hh"
-#include "../include/game.hh"
+#include "../include/pile.h"
+#include "../include/game.h"
 
 TablePile::TablePile(int aSize) 
 : Pile ()
@@ -46,27 +46,28 @@ Card* TablePile::GetHead( int aIndex )
 }
 
 //----------------------------
-//        Init
+//        Deal
 //----------------------------
-void TablePile::Init( Game* apGame )
+void TablePile::Deal( Pile* apPile )
 {
     try
     {
         Clear();
 
-        // Getting the list with all cards
-        DeskPile& deskPile = apGame->GetDeskPile();
+        // checking for nullptr
+        if ( apPile == nullptr )
+            throw std::invalid_argument("Card is nullptr");
 
         // each tablepile hat a fixed number of cards by init
         for(int i = 0; i < mInitNum; i++ ) 
         {
-            if ( !deskPile.IsEmpty() )
+            if ( !apPile->IsEmpty() )
             {
                 // move the last card from desk to table
-                addCard( std::move( deskPile.GetLast() ) );
+                addCard( std::move( apPile->GetLast() ) );
 
                 // clear the last card after moving
-                deskPile.Pop();
+                apPile->Pop();
             }
         }
 
@@ -86,6 +87,10 @@ bool TablePile::canTake(Card* apCard)
 {
     try
     {
+        // checking for nullptr
+        if ( apCard == nullptr )
+            throw std::invalid_argument("Card is nullptr");
+
         // Get the size of cards
         if ( IsEmpty() )
         {

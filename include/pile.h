@@ -1,8 +1,8 @@
 #ifndef PILE_HH
 #define PILE_HH
 
-#include "card.hh"
-#include "game.hh"
+#include "card.h"
+#include "game.h"
 
 #include <iostream>
 #include <vector>
@@ -12,7 +12,7 @@ class Game;
 
 class Pile
 {
-private:
+protected :
     
     std::vector<Card*> mStack;
 
@@ -22,7 +22,7 @@ public:
 
     virtual ~Pile();
 
-    virtual void Init( Game* apGame ) = 0;
+    virtual void Init();
 
     virtual bool  IsEmpty();
 
@@ -48,8 +48,6 @@ public:
 
     virtual void  Show( int row, int cols, WINDOW* window );
 
-    virtual void  Shuffle();
-
     virtual void  Print( std::ostream& arFile );
 
     virtual std::string SizeTotext();
@@ -66,11 +64,13 @@ public:
 
     ~DeskPile();
 
-    virtual void Init     ( Game* apGame ) override;
+    void  Shuffle();
+    
+    void Init     () override;
+    
+    void makeMove ( Game* apGame ) override;
 
-    virtual void makeMove ( Game* apGame ) override;
-
-    virtual void Print    ( std::ostream& arFile ) override;
+    void Print    ( std::ostream& arFile ) override;
     
     void makePile ( );
 };
@@ -85,11 +85,9 @@ public:
 
     ~DiscardPile();
 
-    virtual void Init     ( Game* apGame ) override;
+    void makeMove ( Game* apGame ) override;
 
-    virtual void makeMove ( Game* apGame ) override;
-
-    virtual void Print    ( std::ostream& arFile ) override;
+    void Print    ( std::ostream& arFile ) override;
 };
 
 class SuitPile : public Pile
@@ -104,13 +102,11 @@ public:
     
     ~SuitPile();
 
-    virtual void Init     ( Game* apGame ) override;
+    bool canTake  ( Card* apCard ) override;
 
-    virtual bool canTake  ( Card* apCard ) override;
+    void makeMove ( Game* apGame ) override;
 
-    virtual void makeMove ( Game* apGame ) override;
-
-    virtual void Print    ( std::ostream& arFile ) override;
+    void Print    ( std::ostream& arFile ) override;
 };
 
 class TablePile : public Pile
@@ -127,7 +123,7 @@ public:
 
     Card* GetHead  ( int aIndex );
 
-    void  Init     ( Game* apGame ) override;
+    void  Deal     ( Pile* apPile );
 
     bool  canTake  ( Card* apCard) override;
 

@@ -1,5 +1,5 @@
-#include "../include/pile.hh"
-#include "../include/game.hh"
+#include "../include/pile.h"
+#include "../include/game.h"
 
 DiscardPile::DiscardPile() : Pile ()
 {
@@ -7,16 +7,6 @@ DiscardPile::DiscardPile() : Pile ()
 
 DiscardPile::~DiscardPile()
 {
-}
-
-//----------------------------
-//        Init
-//----------------------------
-void DiscardPile::Init( Game* apGame )
-{
-    Clear();
-
-    std::cout << "Discard\n";
 }
 
 //----------------------------
@@ -60,6 +50,7 @@ void DiscardPile::makeMove ( Game* apGame )
 
                     if ( tablePile.canTake( p_lastCard ) )
                     {
+                        // flip the card
                         p_lastCard->Flip();
 
                         // add to the suitPile

@@ -1,10 +1,9 @@
-#include "../include/pile.hh"
+#include "../include/pile.h"
 
 #include <curses.h>
 
 #include <iostream>
 #include <iomanip>
-#include <random>
 
 //----------------------------
 //        constructor
@@ -19,6 +18,14 @@ Pile::Pile()
 //----------------------------
 Pile::~Pile()
 {
+}
+
+//----------------------------
+//        Init
+//----------------------------
+void Pile::Init()
+{
+    Clear();
 }
 
 //----------------------------
@@ -106,19 +113,25 @@ void Pile::Clear()
 //----------------------------
 void Pile::addCard(Card* pCard)
 {
-
-    Card* p_prev = NULL;
-    
-    if ( !mStack.empty() )
+    if ( pCard )
     {
-        p_prev = mStack.back();
-
-        pCard->mpParent = p_prev;
+        Card* p_prev = NULL;
         
-        p_prev->mpChild = pCard;
-    }
+        if ( !mStack.empty() )
+        {
+            p_prev = mStack.back();
 
-    mStack.push_back(pCard);
+            pCard->mpParent = p_prev;
+            
+            p_prev->mpChild = pCard;
+        }
+
+        mStack.push_back(pCard);
+    }
+    else
+    {
+        throw std::invalid_argument("Card is nullptr");
+    }
 }
 
 //----------------------------
@@ -141,6 +154,9 @@ void Pile::Show( int row, int cols, WINDOW* window )
 
         for ( auto p_card : mStack )
         {
+            if ( p_card == nullptr )
+                continue;
+            
             std::string card_str = p_card->ToText();
             
             int color_pair = p_card->IsRed() ? Card::CARD_COLOR::RED : Card::CARD_COLOR::BLACK;
@@ -163,25 +179,6 @@ std::string Pile::SizeTotext()
     std::string str = stream.str();
 
     return str;
-}
-
-
-//----------------------------
-//       Shuffle
-//----------------------------
-void Pile::Shuffle()
-{
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
-    for ( int i = 0, ie = GetSize(); i < ie; ++i )
-    {
-        std::uniform_int_distribution<int> random(i, ie);
-        int j = random(gen);
-        
-        //int j = rand() % ie;
-
-        std::swap(mStack[i], mStack[j]);
-    }
 }
 
 //----------------------------
