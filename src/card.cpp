@@ -1,6 +1,6 @@
-#include "../include/card.h"
+#include "../include/card.hh"
 
-#include "../include/renderer.h"
+#include "../include/renderer.hh"
 
 //----------------------------
 //          Card

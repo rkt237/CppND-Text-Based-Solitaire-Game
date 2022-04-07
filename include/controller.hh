@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_HH
 #define CONTROLLER_HH
 
-#include "game.h"
+#include "game.hh"
 #include <string>
 #include <vector>
 

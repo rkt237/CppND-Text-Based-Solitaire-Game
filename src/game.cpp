@@ -1,5 +1,5 @@
-#include "../include/game.h"
-#include "../include/pile.h"
+#include "../include/game.hh"
+#include "../include/pile.hh"
 
 #include <fstream>
 #include <iostream>

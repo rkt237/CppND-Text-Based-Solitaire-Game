@@ -1,5 +1,5 @@
-#include "../include/pile.h"
-#include "../include/game.h"
+#include "../include/pile.hh"
+#include "../include/game.hh"
 
 TablePile::TablePile(int aSize) 
 : Pile ()

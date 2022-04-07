@@ -1,5 +1,5 @@
-#include "../include/renderer.h"
-#include "../include/controller.h"
+#include "../include/renderer.hh"
+#include "../include/controller.hh"
 
 #include <iostream>
 

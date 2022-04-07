@@ -1,4 +1,4 @@
-#include "../include/controller.h"
+#include "../include/controller.hh"
 
 #include <algorithm>
 #include <iterator>

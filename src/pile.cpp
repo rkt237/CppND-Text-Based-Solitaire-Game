@@ -1,4 +1,4 @@
-#include "../include/pile.h"
+#include "../include/pile.hh"
 
 #include <curses.h>
 

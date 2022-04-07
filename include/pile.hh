@@ -1,8 +1,8 @@
 #ifndef PILE_HH
 #define PILE_HH
 
-#include "card.h"
-#include "game.h"
+#include "card.hh"
+#include "game.hh"
 
 #include <iostream>
 #include <vector>
